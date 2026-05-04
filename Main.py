@@ -133,6 +133,6 @@ async def berikan_saran(data: DataNutrisiInput):
 @app.get("/")
 async def root():
   return {
-    "message": "Selamat datang di GulaGuard AI API", 
+    "message": "Selamat datang di Cek-Gula AI API", 
     "dokumentasi": "Kunjungi http://127.0.0.1:8000/docs untuk mencoba API"
   }
