@@ -17,7 +17,8 @@ class NormalisasiGambar(tf.keras.layers.Layer):
     inputs = tf.cast(inputs, tf.float32)
     return (inputs / 127.5) - 1.0
 
-model = tf.keras.models.load_model('./best_model.keras', custom_objects={'NormalisasiGambar': NormalisasiGambar})
+path_model = './model_cek_gula.keras' or './best_model.keras'
+model = tf.keras.models.load_model(path_model, custom_objects={'NormalisasiGambar': NormalisasiGambar})
 
 kelas_jajanan = [
   'ampyang', 'arem-arem', 'arum manis', 'bakpao', 'bakwan', 
