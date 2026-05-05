@@ -111,6 +111,34 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## 🚢 Docker (opsional)
+
+Pastikan `.env` dan file model (`best_model.keras` atau `model_cek_gula.keras`) ada di root proyek sebelum menjalankan container.
+
+### Build & jalankan
+
+```bash
+# Dengan docker-compose (v1)
+docker-compose up --build -d
+
+# Atau dengan Docker Compose v2
+docker compose up --build -d
+```
+
+### Lihat log / hentikan
+
+```bash
+docker-compose logs -f
+docker-compose down
+```
+
+Port yang dipetakan: 8000 → 8000. File `docker-compose.yml` dan `Dockerfile` sudah tersedia di root proyek; volume untuk model dan `nutrisi_jajanan.csv` disarankan agar di-mount agar tidak perlu rebuild saat update data/model.
+
+Catatan singkat:
+
+- Untuk GPU, gunakan image base TensorFlow yang mendukung GPU dan aktifkan runtime NVIDIA.
+- Jika menggunakan Windows, jalankan perintah Docker di PowerShell/Terminal dengan hak akses yang sesuai.
+
 ---
 
 ## 📊 Konfigurasi Dataset
@@ -160,16 +188,19 @@ bakpao,320,45,15,8,10,65,22
 ## Konfigurasi Environment
 
 1. Salin `.env.sample` ke `.env`:
+
    ```bash
    copy .env.sample .env
    ```
 
 2. Isi `GEMINI_API_KEY` pada file `.env`:
+
    ```
    GEMINI_API_KEY=kunci_rahasia_anda
    ```
 
 3. Pastikan file `.env` berada di root proyek sebelum menjalankan `uvicorn` atau notebook.
+
 ---
 
 ## ▶️ Cara Menjalankan
@@ -287,9 +318,11 @@ curl -X POST "http://127.0.0.1:8000/prediksi/" \
   }
 }
 ```
+
 ### Endpoint: POST `/saran-kesehatan/`
 
 **Request JSON:**
+
 ```json
 {
   "nama_jajanan": "bakpao",
@@ -301,12 +334,14 @@ curl -X POST "http://127.0.0.1:8000/prediksi/" \
 ```
 
 **Response Sukses (200):**
+
 ```json
 {
   "status": "success",
   "saran_kesehatan": "..."
 }
 ```
+
 Catatan: endpoint ini menggunakan Google Gemini API, sehingga `GEMINI_API_KEY` harus diatur di `.env`. Jika key tidak tersedia, endpoint dapat mengembalikan error atau pesan gagal.
 
 ### Contoh Penggunaan dengan Python
