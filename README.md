@@ -111,34 +111,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## 🚢 Docker (opsional)
-
-Pastikan `.env` dan file model (`best_model.keras` atau `model_cek_gula.keras`) ada di root proyek sebelum menjalankan container.
-
-### Build & jalankan
-
-```bash
-# Dengan docker-compose (v1)
-docker-compose up --build -d
-
-# Atau dengan Docker Compose v2
-docker compose up --build -d
-```
-
-### Lihat log / hentikan
-
-```bash
-docker-compose logs -f
-docker-compose down
-```
-
-Port yang dipetakan: 8000 → 8000. File `docker-compose.yml` dan `Dockerfile` sudah tersedia di root proyek; volume untuk model dan `nutrisi_jajanan.csv` disarankan agar di-mount agar tidak perlu rebuild saat update data/model.
-
-Catatan singkat:
-
-- Untuk GPU, gunakan image base TensorFlow yang mendukung GPU dan aktifkan runtime NVIDIA.
-- Jika menggunakan Windows, jalankan perintah Docker di PowerShell/Terminal dengan hak akses yang sesuai.
-
 ---
 
 ## 📊 Konfigurasi Dataset
@@ -253,7 +225,7 @@ Buka `notebook.ipynb` dan langsung jalankan section:
 cd "d:\Model Cek-Gula"
 
 # Jalankan FastAPI server
-uvicorn Main:app --reload --host 127.0.0.1 --port 8000
+python -m uvicorn Main:app --reload --host 127.0.0.1 --port 8000
 ```
 
 **Output yang muncul:**
